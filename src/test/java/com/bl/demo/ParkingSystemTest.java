@@ -137,4 +137,22 @@ public class ParkingSystemTest {
         int attendant = parkingSystem.attendant();
         Assert.assertEquals(2,attendant);
     }
+
+    @Test
+    public void givenParKingLot_WhenDriverParkedCarFound_ThenReturnTrue() {
+        try {
+            parkingSystem.park(vehicle);
+        } catch (ParkingSystemException e) { }
+        boolean isPresent = parkingSystem.isVehiclePresent(vehicle);
+        Assert.assertTrue(isPresent);
+    }
+
+    @Test
+    public void givenParKingLot_WhenDriverParkedCarNotFound_ThenReturnFalse() {
+        try {
+            parkingSystem.park(vehicle);
+        } catch (ParkingSystemException e) { }
+        boolean isPresent = parkingSystem.isVehiclePresent(new Object());
+        Assert.assertFalse(isPresent);
+    }
 }

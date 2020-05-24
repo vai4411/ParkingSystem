@@ -36,14 +36,14 @@ public class ParkingSystem {
     }
 
     public boolean isVehiclePark(Object vehicle) {
-        if (this.vehicles.contains(vehicle))
+        if (isVehiclePresent(vehicle))
             return true;
         return false;
     }
 
     public boolean unPark(Object vehicle) {
         if (vehicle == null) return false;
-        if (this.vehicles.contains(vehicle)) {
+        if (isVehiclePresent(vehicle)) {
             this.vehicles.remove(vehicle);
             for (ParkingLotObserver observer : observers) {
                 observer.capacityIsAvailable();
@@ -55,5 +55,11 @@ public class ParkingSystem {
 
     public int attendant() {
         return this.vehicles.size();
+    }
+
+    public boolean isVehiclePresent(Object vehicle) {
+        if (this.vehicles.contains(vehicle))
+            return true;
+        return false;
     }
 }
