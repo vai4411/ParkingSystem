@@ -21,14 +21,14 @@ public class ParkingSystem {
     }
 
     public void park(Object vehicle) throws ParkingSystemException {
+        if (isVehiclePark(vehicle))
+            throw new ParkingSystemException("Vehicle Already Parked");
         if (this.vehicles.size() == this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
                 observer.capacityIsFull();
             }
             throw new ParkingSystemException("Parking Lot Is Full");
         }
-        if (isVehiclePark(vehicle))
-            throw new ParkingSystemException("Vehicle Already Parked");
         this.vehicles.add(vehicle);
     }
 
@@ -42,6 +42,9 @@ public class ParkingSystem {
         if (vehicle == null) return false;
         if (this.vehicles.contains(vehicle)) {
             this.vehicles.remove(vehicle);
+            for (ParkingLotObserver observer : observers) {
+                observer.capacityIsAvailable();
+            }
             return true;
         }
         return false;
