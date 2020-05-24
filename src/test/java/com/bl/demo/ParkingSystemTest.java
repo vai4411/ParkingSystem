@@ -1,5 +1,8 @@
 package com.bl.demo;
 
+import com.bl.demo.exception.ParkingSystemException;
+import com.bl.demo.observer.AirportSecurity;
+import com.bl.demo.observer.ParkingLotOwner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -123,5 +126,15 @@ public class ParkingSystemTest {
         parkingSystem.unPark(vehicle);
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertFalse(capacityFull);
+    }
+
+    @Test
+    public void givenParkingLot_WhenParkedVehicles_ShouldReturnAttendant() {
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+        } catch (ParkingSystemException e) { }
+        int attendant = parkingSystem.attendant();
+        Assert.assertEquals(2,attendant);
     }
 }

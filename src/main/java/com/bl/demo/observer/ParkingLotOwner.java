@@ -1,6 +1,8 @@
-package com.bl.demo;
+package com.bl.demo.observer;
 
-public class ParkingLotOwner implements ParkingLotObserver{
+import com.bl.demo.observer.ParkingLotObserver;
+
+public class ParkingLotOwner implements ParkingLotObserver {
     private boolean isFullCapacity;
 
     @Override

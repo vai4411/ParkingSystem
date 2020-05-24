@@ -1,6 +1,6 @@
-package com.bl.demo;
+package com.bl.demo.observer;
 
-public class AirportSecurity implements ParkingLotObserver{
+public class AirportSecurity implements ParkingLotObserver {
     private boolean isFullCapacity;
 
     @Override

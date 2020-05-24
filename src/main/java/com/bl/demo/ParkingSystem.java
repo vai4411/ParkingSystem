@@ -1,5 +1,9 @@
 package com.bl.demo;
 
+import com.bl.demo.exception.ParkingSystemException;
+import com.bl.demo.observer.AirportSecurity;
+import com.bl.demo.observer.ParkingLotObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,6 @@ public class ParkingSystem {
     private List vehicles;
     private List<ParkingLotObserver> observers;
     private int actualCapacity;
-    private AirportSecurity airportSecurity;
 
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
@@ -23,7 +26,7 @@ public class ParkingSystem {
     public void park(Object vehicle) throws ParkingSystemException {
         if (isVehiclePark(vehicle))
             throw new ParkingSystemException("Vehicle Already Parked");
-        if (this.vehicles.size() == this.actualCapacity) {
+        if (attendant() == this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
                 observer.capacityIsFull();
             }
@@ -48,5 +51,9 @@ public class ParkingSystem {
             return true;
         }
         return false;
+    }
+
+    public int attendant() {
+        return this.vehicles.size();
     }
 }
