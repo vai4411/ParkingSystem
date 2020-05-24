@@ -11,40 +11,77 @@ public class ParkingSystemTest {
     @Before
     public void setUp() throws Exception {
         vehicle = new Object();
-        parkingSystem = new ParkingSystem();
+        parkingSystem = new ParkingSystem(2);
     }
 
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue() {
-        boolean isParked = parkingSystem.park(new Object());
-        Assert.assertTrue(isParked);
+        try {
+            parkingSystem.park(vehicle);
+            boolean isParked = parkingSystem.isVehiclePark(vehicle);
+            Assert.assertTrue(isParked);
+        } catch (ParkingSystemException e) { }
     }
 
     @Test
-    public void givenAVehicle_WhenAlreadyParked_ShouldReturnFalse() {
-        parkingSystem.park(vehicle);
-        boolean isParked = parkingSystem.park(new Object());
-        Assert.assertFalse(isParked);
+    public void givenAVehicle_WhenAlreadyParked_ShouldThrowException() {
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle);
+        } catch (ParkingSystemException e) {
+            Assert.assertEquals("Vehicle Already Parked",e.getMessage());
+        }
     }
 
     @Test
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
-        parkingSystem.park(vehicle);
-        boolean isUnParked = parkingSystem.unPark(vehicle);
-        Assert.assertTrue(isUnParked);
+        try {
+            parkingSystem.park(vehicle);
+            boolean isUnParked = parkingSystem.unPark(vehicle);
+            Assert.assertTrue(isUnParked);
+        } catch (ParkingSystemException e) { }
     }
 
     @Test
     public void givenAVehicle_WhenOtherVehicleUnParked_ShouldReturnFalse() {
-        parkingSystem.park(vehicle);
-        boolean isUnParked = parkingSystem.unPark(new Object());
-        Assert.assertFalse(isUnParked);
+        try {
+            parkingSystem.park(vehicle);
+            boolean isUnParked = parkingSystem.unPark(new Object());
+            Assert.assertFalse(isUnParked);
+        } catch (ParkingSystemException e) { }
     }
 
     @Test
     public void givenAVehicle_WhenNullVehicleUnParked_ShouldReturnFalse() {
-        parkingSystem.park(vehicle);
-        boolean isUnParked = parkingSystem.unPark(null);
-        Assert.assertFalse(isUnParked);
+        try {
+            parkingSystem.park(vehicle);
+            boolean isUnParked = parkingSystem.unPark(null);
+            Assert.assertFalse(isUnParked);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldInformTheOwner() {
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingSystem.registerOwner(parkingLotOwner);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+        } catch (ParkingSystemException e) { }
+        boolean capacityFull = parkingLotOwner.isCapacityFull();
+        Assert.assertTrue(capacityFull);
+    }
+
+    @Test
+    public void givenCapacityIsTwo_ShouldBeAbleToParkTwoVehicles() {
+        Object vehicle2 = new Object();
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            boolean isParked1 = parkingSystem.isVehiclePark(vehicle);
+            boolean isParked2 = parkingSystem.isVehiclePark(vehicle2);
+            Assert.assertTrue(isParked1 && isParked2);
+        } catch (ParkingSystemException e) { }
     }
 }
