@@ -63,7 +63,7 @@ public class ParkingSystemTest {
     @Test
     public void givenWhenParkingLotIsFull_ShouldInformTheOwner() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
-        parkingSystem.registerOwner(parkingLotOwner);
+        parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(new Object());
@@ -71,6 +71,19 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertTrue(capacityFull);
+    }
+
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldTrowTheException() {
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingSystem.registerParkingLotObserver(parkingLotOwner);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+        } catch (ParkingSystemException e) {
+            Assert.assertEquals("Parking Lot Is Full",e.getMessage());
+        }
     }
 
     @Test
@@ -83,5 +96,18 @@ public class ParkingSystemTest {
             boolean isParked2 = parkingSystem.isVehiclePark(vehicle2);
             Assert.assertTrue(isParked1 && isParked2);
         } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldInformAirportSecurity() {
+        AirportSecurity airportSecurity = new AirportSecurity();
+        parkingSystem.registerParkingLotObserver(airportSecurity);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+        } catch (ParkingSystemException e) { }
+        boolean capacityFull = airportSecurity.isCapacityFull();
+        Assert.assertTrue(capacityFull);
     }
 }
