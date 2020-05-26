@@ -164,4 +164,20 @@ public class ParkingSystemTest {
             Assert.assertEquals("Vehicle Is Not Present",e.getMessage());
         }
     }
+
+    @Test
+    public void givenAVehicle_WhenParkedAndUnParked_ShouldReturnTime() {
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.unPark(vehicle);
+            double parkingTime = parkingSystem.getTime(vehicle);
+            double vehicleTime = parkingLotOwner.getTime();
+            Assert.assertEquals(vehicleTime,parkingTime,1e-16);
+        } catch (ParkingSystemException e) { }
+    }
 }

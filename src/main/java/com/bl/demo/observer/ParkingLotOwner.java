@@ -1,9 +1,19 @@
 package com.bl.demo.observer;
 
-import com.bl.demo.observer.ParkingLotObserver;
-
 public class ParkingLotOwner implements ParkingLotObserver {
     private boolean isFullCapacity;
+    private double time;
+
+    public ParkingLotOwner() {
+    }
+
+    public ParkingLotOwner(double time) {
+        this.time = time;
+    }
+
+    public double getTime() {
+        return time;
+    }
 
     @Override
     public void capacityIsFull() {
