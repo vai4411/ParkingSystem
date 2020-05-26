@@ -14,7 +14,7 @@ public class ParkingSystemTest {
     @Before
     public void setUp() throws Exception {
         vehicle = new Object();
-        parkingSystem = new ParkingSystem(2);
+        parkingSystem = new ParkingSystem(2,3);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ParkingSystemTest {
     @Test
     public void givenAVehicle_WhenOtherVehicleUnParked_ShouldReturnFalse() {
         try {
-            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
             boolean isUnParked = parkingSystem.unPark(new Object());
             Assert.assertFalse(isUnParked);
         } catch (ParkingSystemException e) { }
@@ -71,6 +71,10 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(new Object());
             parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -82,6 +86,10 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
             parkingSystem.park(new Object());
             parkingSystem.park(new Object());
         } catch (ParkingSystemException e) {
@@ -109,6 +117,10 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(new Object());
             parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
+            parkingSystem.park(new Object());
         } catch (ParkingSystemException e) { }
         boolean capacityFull = airportSecurity.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -129,30 +141,27 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenParkingLot_WhenParkedVehicles_ShouldReturnAttendant() {
+    public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
+        Object vehicle2 = new Object();
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
+            parkingSystem.park(vehicle2);
+            parkingSystem.unPark(vehicle);
+            int slotNumber = parkingSystem.getSlot(vehicle2);
+            Assert.assertEquals(2,slotNumber);
         } catch (ParkingSystemException e) { }
-        int attendant = parkingSystem.attendant();
-        Assert.assertEquals(2,attendant);
     }
 
     @Test
-    public void givenParKingLot_WhenDriverParkedCarFound_ThenReturnTrue() {
+    public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_WhenVehicleNotPresent_ShouldThrowException() {
+        Object vehicle2 = new Object();
         try {
             parkingSystem.park(vehicle);
-        } catch (ParkingSystemException e) { }
-        boolean isPresent = parkingSystem.isVehiclePresent(vehicle);
-        Assert.assertTrue(isPresent);
-    }
-
-    @Test
-    public void givenParKingLot_WhenDriverParkedCarNotFound_ThenReturnFalse() {
-        try {
-            parkingSystem.park(vehicle);
-        } catch (ParkingSystemException e) { }
-        boolean isPresent = parkingSystem.isVehiclePresent(new Object());
-        Assert.assertFalse(isPresent);
+            parkingSystem.park(vehicle2);
+            parkingSystem.unPark(vehicle);
+            int slotNumber = parkingSystem.getSlot(vehicle);
+        } catch (ParkingSystemException e) {
+            Assert.assertEquals("Vehicle Is Not Present",e.getMessage());
+        }
     }
 }
