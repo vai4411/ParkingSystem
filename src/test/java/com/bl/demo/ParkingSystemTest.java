@@ -148,7 +148,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
             int slotNumber = parkingSystem.getSlot(vehicle2);
-            Assert.assertEquals(2,slotNumber);
+            Assert.assertEquals(3,slotNumber);
         } catch (ParkingSystemException e) { }
     }
 
@@ -178,6 +178,22 @@ public class ParkingSystemTest {
             double parkingTime = parkingSystem.getTime(vehicle);
             double vehicleTime = parkingLotOwner.getTime();
             Assert.assertEquals(vehicleTime,parkingTime,1e-16);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLotOwnerWantToEvenlyDirectCars_ShouldReturnLotNumber() {
+        Object vehicle2 = new Object();
+        Object vehicle3 = new Object();
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Object());
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Object());
+            parkingSystem.park(vehicle3);
+            Assert.assertEquals(1,parkingSystem.getSlot(vehicle));
+            Assert.assertEquals(5,parkingSystem.getSlot(vehicle2));
+            Assert.assertEquals(2,parkingSystem.getSlot(vehicle3));
         } catch (ParkingSystemException e) { }
     }
 }

@@ -50,7 +50,9 @@ public class ParkingSystem {
         }
         parkTime = date.getTime();
         this.vehicles.put(slotNumber,vehicle);
-        slotNumber++;
+        slotNumber += (parkingLotCapacity() / floor);
+        if (slotNumber > parkingLotCapacity())
+            slotNumber = 0;
     }
 
     public boolean isVehiclePark(Object vehicle) {
