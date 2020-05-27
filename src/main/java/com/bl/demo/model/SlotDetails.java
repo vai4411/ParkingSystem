@@ -1,4 +1,4 @@
-package com.bl.demo;
+package com.bl.demo.model;
 
 import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
@@ -8,7 +8,7 @@ import static com.bl.demo.ParkingSystem.*;
 public class SlotDetails {
     private static int slotNumber;
 
-    public static int swapSlots(int slotNumber,Vehicles vehicle) {
+    public static int swapSlots(int slotNumber, Vehicles vehicle) {
         slotNumber += (parkingLotCapacity() / noOfSlots);
         if (slotNumber > parkingLotCapacity())
             slotNumber = 0;
@@ -22,7 +22,7 @@ public class SlotDetails {
                 slotNumber = slot;
             }
         }
-        if (vehicle.getDriver().equals(VehicleDetails.Handicap.getDriver())) {
+        if (vehicle.getDriver().equals(VehicleDetails.Handicap.getVehicleDetails())) {
             int slot = 1;
             while (vehicles.get(slot) != null) {
                 slot++;

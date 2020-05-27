@@ -2,15 +2,17 @@ package com.bl.demo.enums;
 
 public enum VehicleDetails {
     Normal("Normal"),
-    Handicap("Handicap");
+    Handicap("Handicap"),
+    Small("Small"),
+    Large("Large");
 
     private String driver;
 
-    VehicleDetails(String driver) {
-        this.driver = driver;
+    VehicleDetails(String vehicleDetails) {
+        this.driver = vehicleDetails;
     }
 
-    public String getDriver() {
+    public String getVehicleDetails() {
         return driver;
     }
 }

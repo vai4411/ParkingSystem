@@ -1,7 +1,8 @@
 package com.bl.demo;
 
-import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
+import com.bl.demo.model.SlotDetails;
+import com.bl.demo.model.Vehicles;
 import com.bl.demo.observer.ParkingLotObserver;
 import com.bl.demo.observer.ParkingLotOwner;
 
