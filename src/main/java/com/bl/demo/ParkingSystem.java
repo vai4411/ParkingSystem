@@ -86,27 +86,7 @@ public class ParkingSystem {
         return exitTime - entryTime;
     }
 
-//    public void slotNumber(Vehicles vehicle) throws ParkingSystemException {
-//        slotNumber = 0;
-//        for (int slot = 1 ; slot <=parkingLotCapacity() ; slot++ ) {
-//            if (this.vehicles.get(slot) == vehicle) {
-//                slotNumber = slot;
-//            }
-//        }
-//        if (vehicle.getDriver().equals(VehicleDetails.Handicap.getDriver())) {
-//            int slot = 1;
-//            while (this.vehicles.get(slot) != null) {
-//                slot++;
-//                slotNumber = slot;
-//            }
-//        }
-//        if (slotNumber == 0)
-//            throw new ParkingSystemException("Vehicle Is Not Present");
-//    }
-
     public int getSlot(Vehicles vehicle) throws ParkingSystemException {
-//        slotNumber(vehicle);
-//        SlotDetails.getSlot(vehicle);
         return SlotDetails.getSlot(vehicle);
     }
 

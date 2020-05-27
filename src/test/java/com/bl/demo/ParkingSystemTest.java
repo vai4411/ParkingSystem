@@ -128,7 +128,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
+    public void givenOwnerWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
@@ -138,6 +138,20 @@ public class ParkingSystemTest {
             parkingSystem.unPark(vehicle);
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
+        Assert.assertFalse(capacityFull);
+    }
+
+    @Test
+    public void givenSecurityWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
+        AirportSecurity airportSecurity = new AirportSecurity();
+        parkingSystem.registerParkingLotObserver(airportSecurity);
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.unPark(vehicle);
+        } catch (ParkingSystemException e) { }
+        boolean capacityFull = airportSecurity.isCapacityFull();
         Assert.assertFalse(capacityFull);
     }
 
