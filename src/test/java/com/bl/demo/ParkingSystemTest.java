@@ -1,5 +1,6 @@
 package com.bl.demo;
 
+import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.observer.AirportSecurity;
 import com.bl.demo.observer.ParkingLotOwner;
@@ -8,12 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ParkingSystemTest {
-    Object vehicle = null;
+    Vehicles vehicle = null;
     ParkingSystem parkingSystem = null;
 
     @Before
     public void setUp() throws Exception {
-        vehicle = new Object();
+        vehicle = new Vehicles(VehicleDetails.Normal.getDriver());
         parkingSystem = new ParkingSystem(2,3);
     }
 
@@ -48,8 +49,8 @@ public class ParkingSystemTest {
     @Test
     public void givenAVehicle_WhenOtherVehicleUnParked_ShouldReturnFalse() {
         try {
-            parkingSystem.park(new Object());
-            boolean isUnParked = parkingSystem.unPark(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            boolean isUnParked = parkingSystem.unPark(new Vehicles(VehicleDetails.Normal.getDriver()));
             Assert.assertFalse(isUnParked);
         } catch (ParkingSystemException e) { }
     }
@@ -69,12 +70,12 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -86,12 +87,12 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
         } catch (ParkingSystemException e) {
             Assert.assertEquals("Parking Lot Is Full",e.getMessage());
         }
@@ -99,12 +100,12 @@ public class ParkingSystemTest {
 
     @Test
     public void givenCapacityIsTwo_ShouldBeAbleToParkTwoVehicles() {
-        Object vehicle2 = new Object();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
             boolean isParked1 = parkingSystem.isVehiclePark(vehicle);
-            boolean isParked2 = parkingSystem.isVehiclePark(vehicle2);
+            boolean isParked2 = parkingSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isParked1 && isParked2);
         } catch (ParkingSystemException e) { }
     }
@@ -115,12 +116,12 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(airportSecurity);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
         } catch (ParkingSystemException e) { }
         boolean capacityFull = airportSecurity.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -132,17 +133,17 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.unPark(vehicle);
         } catch (ParkingSystemException e) { }
-        parkingSystem.unPark(vehicle);
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertFalse(capacityFull);
     }
 
     @Test
     public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
-        Object vehicle2 = new Object();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -154,7 +155,7 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_WhenVehicleNotPresent_ShouldThrowException() {
-        Object vehicle2 = new Object();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -168,32 +169,81 @@ public class ParkingSystemTest {
     @Test
     public void givenAVehicle_WhenParkedAndUnParked_ShouldReturnTime() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
             double parkingTime = parkingSystem.getTime(vehicle);
             double vehicleTime = parkingLotOwner.getTime();
-            Assert.assertEquals(vehicleTime,parkingTime,1e-16);
+            Assert.assertEquals(vehicleTime,parkingTime,0.0);
         } catch (ParkingSystemException e) { }
     }
 
     @Test
-    public void givenParkingLotOwnerWantToEvenlyDirectCars_ShouldReturnLotNumber() {
-        Object vehicle2 = new Object();
-        Object vehicle3 = new Object();
+    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorOne_ShouldReturnLotNumber() {
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getDriver());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
             parkingSystem.park(vehicle2);
-            parkingSystem.park(new Object());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
             parkingSystem.park(vehicle3);
             Assert.assertEquals(1,parkingSystem.getSlot(vehicle));
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorTwo_ShouldReturnLotNumber() {
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getDriver());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(vehicle3);
             Assert.assertEquals(5,parkingSystem.getSlot(vehicle2));
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorThree_ShouldReturnLotNumber() {
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getDriver());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getDriver()));
+            parkingSystem.park(vehicle3);
             Assert.assertEquals(2,parkingSystem.getSlot(vehicle3));
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenHandicapDriverComes_ThenReturnNearestSlotNumber() {
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getDriver());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Handicap.getDriver());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            Assert.assertEquals(2,parkingSystem.getSlot(vehicle3),0.0);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenNormalDriverComes_ThenReturnNearestSlotNumber() {
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getDriver());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getDriver());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            Assert.assertEquals(3,parkingSystem.getSlot(vehicle3),0.0);
         } catch (ParkingSystemException e) { }
     }
 }
