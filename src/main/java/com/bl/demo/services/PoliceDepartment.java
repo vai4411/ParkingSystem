@@ -1,21 +1,19 @@
-package com.bl.demo.observer;
+package com.bl.demo.services;
 
 import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
-import com.bl.demo.model.SlotDetails;
 import com.bl.demo.model.Vehicles;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.bl.demo.ParkingSystem.*;
 
 public class PoliceDepartment {
-//    public HashMap<Integer,Vehicles> longStandByVehicles;
+    Vehicles vehicle = null;
+    public static ArrayList handicapDriver = new ArrayList();
 
     public void CarDetails(String property) {
-        Vehicles vehicle = null;
         for (int slot = 1 ; slot <=parkingLotCapacity() ; slot++ ) {
             if (vehicles.get(slot) != null)
                 vehicle = vehicles.get(slot);
@@ -62,5 +60,23 @@ public class PoliceDepartment {
 
     public List longStandByVehicle() {
         return longStandByVehicles;
+    }
+
+    public List getHandicapDriversOfSlots() {
+        lotCapacity = parkingLots();
+        getHandicapDriversDetails();
+        lotCapacity = lotCapacity * 3 + 1;
+        getHandicapDriversDetails();
+        return handicapDriver;
+    }
+
+    public void getHandicapDriversDetails() {
+        for (int slot = lotCapacity + 1 ; slot <= lotCapacity*2 ; slot++) {
+            if (vehicles.get(slot) != null) {
+                vehicle = vehicles.get(slot);
+                if (vehicle.getDriver().equals(VehicleDetails.Handicap.getVehicleDetails()))
+                    handicapDriver.add(vehicle);
+            }
+        }
     }
 }

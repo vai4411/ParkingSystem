@@ -5,13 +5,11 @@ import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
 import com.bl.demo.observer.AirportSecurity;
 import com.bl.demo.observer.ParkingLotOwner;
-import com.bl.demo.observer.PoliceDepartment;
+import com.bl.demo.services.PoliceDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ParkingSystemTest {
@@ -500,7 +498,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenVehicle_WhenParkedAndUnParked_ShouldTotalNumber() {
+    public void givenVehicle_WhenParkedAndUnParked_ShouldReturnTotalNumber() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                 VehicleDetails.Black.getVehicleDetails());
@@ -518,6 +516,22 @@ public class ParkingSystemTest {
             parkingSystem.getTotalParkedTime();
             List parkingTime = policeDepartment.longStandByVehicle();
             Assert.assertEquals(6,parkingTime.size());
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenVehicle_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                VehicleDetails.Black.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.getTotalParkedTime();
+            List handicapDrivers = policeDepartment.getHandicapDriversOfSlots();
+            Assert.assertEquals(1,handicapDrivers.size());
         } catch (ParkingSystemException e) { }
     }
 }
