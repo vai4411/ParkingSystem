@@ -1,5 +1,6 @@
 package com.bl.demo;
 
+import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.SlotDetails;
 import com.bl.demo.model.Vehicles;
@@ -14,16 +15,16 @@ import java.util.List;
 public class ParkingSystem {
 
     public static int noOfSlots;
-    public static HashMap vehicles;
+    public static HashMap<Integer,Vehicles> vehicles;
     private List<ParkingLotObserver> observers;
     private static int actualCapacity;
     private int slotNumber = 1;
     private HashMap entryTimeOfVehicles;
     private HashMap exitTimeOfVehicles;
-    private double totalTime;
     private double entryTime;
     private double exitTime;
     private Date date;
+    public static HashMap whiteCarData;
 
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
@@ -37,6 +38,7 @@ public class ParkingSystem {
         this.entryTimeOfVehicles = new HashMap<>();
         this.exitTimeOfVehicles = new HashMap<>();
         this.date = new Date();
+        this.whiteCarData = new HashMap<>();
     }
 
     public static int parkingLotCapacity() {

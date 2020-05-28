@@ -4,7 +4,9 @@ public enum VehicleDetails {
     Normal("Normal"),
     Handicap("Handicap"),
     Small("Small"),
-    Large("Large");
+    Large("Large"),
+    White("White"),
+    Black("Black");
 
     private String driver;
 

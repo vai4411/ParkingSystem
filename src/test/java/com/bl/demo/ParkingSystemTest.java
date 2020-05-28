@@ -15,7 +15,8 @@ public class ParkingSystemTest {
 
     @Before
     public void setUp() throws Exception {
-        vehicle = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        vehicle = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                VehicleDetails.Black.getVehicleDetails());
         parkingSystem = new ParkingSystem(2,3);
     }
 
@@ -50,8 +51,10 @@ public class ParkingSystemTest {
     @Test
     public void givenAVehicle_WhenOtherVehicleUnParked_ShouldReturnFalse() {
         try {
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            boolean isUnParked = parkingSystem.unPark(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            boolean isUnParked = parkingSystem.unPark(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                                        VehicleDetails.Black.getVehicleDetails()));
             Assert.assertFalse(isUnParked);
         } catch (ParkingSystemException e) { }
     }
@@ -71,12 +74,18 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -88,12 +97,18 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
         } catch (ParkingSystemException e) {
             Assert.assertEquals("Parking Lot Is Full",e.getMessage());
         }
@@ -101,10 +116,12 @@ public class ParkingSystemTest {
 
     @Test
     public void givenCapacityIsTwo_ShouldBeAbleToParkTwoVehicles() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             boolean isParked1 = parkingSystem.isVehiclePark(vehicle);
             boolean isParked2 = parkingSystem.isVehiclePark(vehicle);
             Assert.assertTrue(isParked1 && isParked2);
@@ -117,12 +134,18 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(airportSecurity);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
         } catch (ParkingSystemException e) { }
         boolean capacityFull = airportSecurity.isCapacityFull();
         Assert.assertTrue(capacityFull);
@@ -134,8 +157,10 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.unPark(vehicle);
         } catch (ParkingSystemException e) { }
         boolean capacityFull = parkingLotOwner.isCapacityFull();
@@ -148,8 +173,10 @@ public class ParkingSystemTest {
         parkingSystem.registerParkingLotObserver(airportSecurity);
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.unPark(vehicle);
         } catch (ParkingSystemException e) { }
         boolean capacityFull = airportSecurity.isCapacityFull();
@@ -158,7 +185,8 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -170,7 +198,8 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_WhenVehicleNotPresent_ShouldThrowException() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -184,12 +213,16 @@ public class ParkingSystemTest {
     @Test
     public void givenAVehicle_WhenParkedAndUnParked_ShouldReturnTime() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
             double parkingTime = parkingSystem.getTime(vehicle);
@@ -200,13 +233,17 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorOne_ShouldReturnLotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
-        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
             Assert.assertEquals(1,parkingSystem.getSlot(vehicle));
         } catch (ParkingSystemException e) { }
@@ -214,13 +251,17 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorTwo_ShouldReturnLotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
-        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
             Assert.assertEquals(5,parkingSystem.getSlot(vehicle2));
         } catch (ParkingSystemException e) { }
@@ -228,13 +269,17 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorThree_ShouldReturnLotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
-        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
-            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
             Assert.assertEquals(2,parkingSystem.getSlot(vehicle3));
         } catch (ParkingSystemException e) { }
@@ -242,8 +287,10 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLot_WhenHandicapDriverComes_ThenReturnNearestSlotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
-        Vehicles vehicle3 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -253,8 +300,10 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLot_WhenNormalDriverComes_ThenReturnNearestSlotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
-        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
@@ -264,11 +313,41 @@ public class ParkingSystemTest {
 
     @Test
     public void givenParkingLot_WhenLargeVehicleComes_ThenReturnSlotNumber() {
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails());
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                                            VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             Assert.assertEquals(3,parkingSystem.getSlot(vehicle2));
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenWhiteCarParked_ShouldReturnTotalWhiteCars() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            int whiteCar = policeDepartment.getWhiteCarNumbers();
+            Assert.assertEquals(1,whiteCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenWhiteCarParked_ShouldReturnSlotNumber() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle3);
+            int whiteCar = policeDepartment.carLocation(vehicle2);
+            Assert.assertEquals(4,whiteCar);
         } catch (ParkingSystemException e) { }
     }
 }
