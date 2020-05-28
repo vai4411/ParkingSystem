@@ -1,5 +1,6 @@
 package com.bl.demo;
 
+import com.bl.demo.enums.ExceptionType;
 import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
@@ -10,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ParkingSystemTest {
@@ -38,7 +40,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle);
         } catch (ParkingSystemException e) {
-            Assert.assertEquals("Vehicle Already Parked",e.getMessage());
+            Assert.assertEquals(ExceptionType.AlreadyParkedVehicle.getException(),e.getMessage());
         }
     }
 
@@ -113,7 +115,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails()));
         } catch (ParkingSystemException e) {
-            Assert.assertEquals("Parking Lot Is Full",e.getMessage());
+            Assert.assertEquals(ExceptionType.ParkingFull.getException(),e.getMessage());
         }
     }
 
@@ -209,7 +211,7 @@ public class ParkingSystemTest {
             parkingSystem.unPark(vehicle);
             int slotNumber = parkingSystem.getSlot(vehicle);
         } catch (ParkingSystemException e) {
-            Assert.assertEquals("Vehicle Is Not Present",e.getMessage());
+            Assert.assertEquals(ExceptionType.VehicleNotFound.getException(),e.getMessage());
         }
     }
 
@@ -498,7 +500,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenVehicle_WhenParkedAndUnParked_ShouldReturnTotalNumber() {
+    public void givenParkingLot_WhenCarParkedInHalfHours_ShouldReturnTotalNumber() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                 VehicleDetails.Black.getVehicleDetails());
@@ -520,7 +522,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenVehicle_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
+    public void givenParkingLot_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                 VehicleDetails.Black.getVehicleDetails());
@@ -532,6 +534,22 @@ public class ParkingSystemTest {
             parkingSystem.getTotalParkedTime();
             List handicapDrivers = policeDepartment.getHandicapDriversOfSlots();
             Assert.assertEquals(1,handicapDrivers.size());
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenVehicle_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                VehicleDetails.Black.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            HashMap vehicleData = parkingSystem.vehicles;
+            HashMap vehicleDetails = policeDepartment.getVehicleData();
+            Assert.assertEquals(vehicleData.size(),vehicleDetails.size());
         } catch (ParkingSystemException e) { }
     }
 }

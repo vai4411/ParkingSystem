@@ -1,12 +1,11 @@
 package com.bl.demo;
 
-import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
-import com.bl.demo.services.SlotDetails;
 import com.bl.demo.model.Vehicles;
 import com.bl.demo.observer.ParkingLotObserver;
 import com.bl.demo.observer.ParkingLotOwner;
 import com.bl.demo.services.PoliceDepartment;
+import com.bl.demo.services.SlotDetails;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,10 +26,10 @@ public class ParkingSystem {
     private Date date;
     public static HashMap carDetails;
     public static ArrayList longStandByVehicles;
-//    public static ArrayList handicapDriver;
     long time = 0;
     Vehicles vehicle = null;
     public static int lotCapacity;
+    public static HashMap vehicleData;
 
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
@@ -46,6 +45,7 @@ public class ParkingSystem {
         this.date = new Date();
         this.carDetails = new HashMap<>();
         this.longStandByVehicles = new ArrayList();
+        this.vehicleData = new HashMap();
     }
 
     public static int parkingLotCapacity() {
@@ -67,6 +67,7 @@ public class ParkingSystem {
         }
         this.entryTimeOfVehicles.put(vehicle, date.getTime());
         this.vehicles.put(slotNumber, vehicle);
+        new PoliceDepartment().getVehicleDetails(slotNumber,vehicle);
         slotNumber = SlotDetails.swapSlots(slotNumber);
     }
 

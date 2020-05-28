@@ -5,13 +5,14 @@ import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.bl.demo.ParkingSystem.*;
 
 public class PoliceDepartment {
     Vehicles vehicle = null;
-    public static ArrayList handicapDriver = new ArrayList();
+    public ArrayList handicapDriver = new ArrayList();
 
     public void CarDetails(String property) {
         for (int slot = 1 ; slot <=parkingLotCapacity() ; slot++ ) {
@@ -65,7 +66,7 @@ public class PoliceDepartment {
     public List getHandicapDriversOfSlots() {
         lotCapacity = parkingLots();
         getHandicapDriversDetails();
-        lotCapacity = lotCapacity * 3 + 1;
+        lotCapacity = parkingLots() * 3 + 1;
         getHandicapDriversDetails();
         return handicapDriver;
     }
@@ -78,5 +79,13 @@ public class PoliceDepartment {
                     handicapDriver.add(vehicle);
             }
         }
+    }
+
+    public void getVehicleDetails(int slotNumber,Vehicles vehicle) {
+        vehicleData.put(slotNumber,vehicle);
+    }
+
+    public HashMap getVehicleData() {
+        return vehicleData;
     }
 }
