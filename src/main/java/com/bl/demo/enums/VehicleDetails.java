@@ -6,7 +6,9 @@ public enum VehicleDetails {
     Small("Small"),
     Large("Large"),
     White("White"),
-    Black("Black");
+    Black("Black"),
+    Blue("Blue"),
+    Toyota("Toyota");
 
     private String driver;
 

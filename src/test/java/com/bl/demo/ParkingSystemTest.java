@@ -5,16 +5,19 @@ import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
 import com.bl.demo.observer.AirportSecurity;
 import com.bl.demo.observer.ParkingLotOwner;
+import com.bl.demo.observer.PoliceDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 public class ParkingSystemTest {
     Vehicles vehicle = null;
     ParkingSystem parkingSystem = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         vehicle = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                 VehicleDetails.Black.getVehicleDetails());
         parkingSystem = new ParkingSystem(2,3);
@@ -327,11 +330,36 @@ public class ParkingSystemTest {
         PoliceDepartment policeDepartment = new PoliceDepartment();
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
                 VehicleDetails.White.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails());
+        Vehicles vehicle4 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        Vehicles vehicle5 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
-            int whiteCar = policeDepartment.getWhiteCarNumbers();
-            Assert.assertEquals(1,whiteCar);
+            parkingSystem.park(vehicle3);
+            parkingSystem.park(vehicle4);
+            parkingSystem.park(vehicle5);
+            int whiteCar = policeDepartment.getNumberOfVehicles(VehicleDetails.White.getVehicleDetails());
+            Assert.assertEquals(2,whiteCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenPoliceTryToCheckUnknownCarParked_ShouldReturnZero() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle3);
+            int unknownVehicle = policeDepartment.getNumberOfVehicles(VehicleDetails.Black.getVehicleDetails());
+            Assert.assertEquals(0,unknownVehicle);
         } catch (ParkingSystemException e) { }
     }
 
@@ -346,8 +374,84 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle3);
-            int whiteCar = policeDepartment.carLocation(vehicle2);
-            Assert.assertEquals(4,whiteCar);
+            int whiteCar = policeDepartment.getSlot(vehicle2);
+            Assert.assertEquals(3,whiteCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenToyotaCarParked_ShouldReturnTotalToyotaCars() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0423","yash");
+        Vehicles vehicle1 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0424","raj");
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0425","abc");
+        Vehicles vehicle4 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0426","xyz");
+        Vehicles vehicle5 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0426","def");
+        Vehicles vehicle6 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0427","yft");
+        try {
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle1);
+            parkingSystem.park(vehicle3);
+            parkingSystem.park(vehicle4);
+            parkingSystem.park(vehicle5);
+            parkingSystem.park(vehicle6);
+            int toyotaCar = policeDepartment.getNumberOfVehicles(VehicleDetails.Toyota.getVehicleDetails());
+            Assert.assertEquals(3,toyotaCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenToyotaCarParked_ShouldReturnSlotNumber() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0423","yash");
+        Vehicles vehicle1 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0424","raj");
+        try {
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle1);
+            int toyotaCar = policeDepartment.getSlot(vehicle2);
+            Assert.assertEquals(1,toyotaCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenToyotaCarParked_ShouldReturnNumberPlate() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0423","yash");
+        Vehicles vehicle1 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0424","raj");
+        try {
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle1);
+            policeDepartment.CarDetails(VehicleDetails.Toyota.getVehicleDetails());
+            int countOfVehicle = policeDepartment.getSlot(vehicle2);
+            String toyotaCar = policeDepartment.getNumberPlate(countOfVehicle);
+            Assert.assertEquals("MH0423",toyotaCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenParkingLot_WhenToyotaCarParked_ShouldReturnName() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.Blue.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0423","yash");
+        Vehicles vehicle1 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
+                VehicleDetails.White.getVehicleDetails(),VehicleDetails.Toyota.getVehicleDetails(),"MH0424","raj");
+        try {
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(vehicle1);
+            policeDepartment.CarDetails(VehicleDetails.Toyota.getVehicleDetails());
+            int countOfVehicle = policeDepartment.getSlot(vehicle2);
+            String toyotaCar = policeDepartment.getDriverName(countOfVehicle);
+            Assert.assertEquals("yash",toyotaCar);
         } catch (ParkingSystemException e) { }
     }
 }
