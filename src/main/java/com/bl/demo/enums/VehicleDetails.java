@@ -1,3 +1,8 @@
+/*******************************************************+
+ * @purpose : Provide Vehicle Properties In Enum Format
+ * @author : Vaibhav Patil
+ * @date : 27/5/2020
+ ********************************************************/
 package com.bl.demo.enums;
 
 public enum VehicleDetails {

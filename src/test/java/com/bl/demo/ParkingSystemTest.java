@@ -7,6 +7,7 @@ import com.bl.demo.model.Vehicles;
 import com.bl.demo.observer.AirportSecurity;
 import com.bl.demo.observer.ParkingLotOwner;
 import com.bl.demo.services.PoliceDepartment;
+import com.bl.demo.services.SlotDetails;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -196,7 +197,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
-            int slotNumber = parkingSystem.getSlot(vehicle2);
+            int slotNumber = new SlotDetails().getSlot(vehicle2);
             Assert.assertEquals(3,slotNumber);
         } catch (ParkingSystemException e) { }
     }
@@ -209,7 +210,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
-            int slotNumber = parkingSystem.getSlot(vehicle);
+            int slotNumber = new SlotDetails().getSlot(vehicle);
         } catch (ParkingSystemException e) {
             Assert.assertEquals(ExceptionType.VehicleNotFound.getException(),e.getMessage());
         }
@@ -250,7 +251,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
-            Assert.assertEquals(1,parkingSystem.getSlot(vehicle));
+            Assert.assertEquals(1,new SlotDetails().getSlot(vehicle));
         } catch (ParkingSystemException e) { }
     }
 
@@ -268,7 +269,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
-            Assert.assertEquals(5,parkingSystem.getSlot(vehicle2));
+            Assert.assertEquals(5,new SlotDetails().getSlot(vehicle2));
         } catch (ParkingSystemException e) { }
     }
 
@@ -286,7 +287,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
-            Assert.assertEquals(2,parkingSystem.getSlot(vehicle3));
+            Assert.assertEquals(2,new SlotDetails().getSlot(vehicle3));
         } catch (ParkingSystemException e) { }
     }
 
@@ -299,7 +300,7 @@ public class ParkingSystemTest {
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
-            Assert.assertEquals(2,parkingSystem.getSlot(vehicle3),0.0);
+            Assert.assertEquals(2,new SlotDetails().getSlot(vehicle3),0.0);
         } catch (ParkingSystemException e) { }
     }
 
@@ -312,7 +313,7 @@ public class ParkingSystemTest {
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
-            Assert.assertEquals(3,parkingSystem.getSlot(vehicle3),0.0);
+            Assert.assertEquals(3,new SlotDetails().getSlot(vehicle3),0.0);
         } catch (ParkingSystemException e) { }
     }
 
@@ -323,7 +324,7 @@ public class ParkingSystemTest {
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
-            Assert.assertEquals(3,parkingSystem.getSlot(vehicle2));
+            Assert.assertEquals(3,new SlotDetails().getSlot(vehicle2));
         } catch (ParkingSystemException e) { }
     }
 

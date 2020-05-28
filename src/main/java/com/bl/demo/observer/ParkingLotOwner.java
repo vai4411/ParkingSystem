@@ -1,3 +1,8 @@
+/**************************************************************+
+ * @purpose : Owner Check For Parking Capacity Full Or Available
+ * @author : Vaibhav Patil
+ * @date : 28/5/2020
+ ***************************************************************/
 package com.bl.demo.observer;
 
 public class ParkingLotOwner implements ParkingLotObserver {

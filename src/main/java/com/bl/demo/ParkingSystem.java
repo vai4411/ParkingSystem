@@ -1,3 +1,8 @@
+/**********************************************************************
+ * @purpose : Parking System Store Data About Vehicles And Parking Lot
+ * @author : Vaibhav Patil
+ * @date : 26/5/2020
+ **********************************************************************/
 package com.bl.demo;
 
 import com.bl.demo.exception.ParkingSystemException;
@@ -48,14 +53,27 @@ public class ParkingSystem {
         this.vehicleData = new HashMap();
     }
 
+    /**+
+     * @purpose : Basis Of Slots Calculate Total Capacity
+     * @return : Total Capacity Of Parking Lot
+     */
     public static int parkingLotCapacity() {
         return actualCapacity * noOfSlots;
     }
 
+    /**+
+     * @purpose : Divide Slots Rows
+     * @return : Total Number Of Rows
+     */
     public static int parkingLots() {
         return parkingLotCapacity() / noOfSlots * 2;
     }
 
+    /**+
+     * @purpose : Store Vehicles Record
+     * @param vehicle
+     * @throws ParkingSystemException
+     */
     public void park(Vehicles vehicle) throws ParkingSystemException {
         if (isVehiclePark(vehicle))
             throw new ParkingSystemException("Vehicle Already Parked");
@@ -71,6 +89,11 @@ public class ParkingSystem {
         slotNumber = SlotDetails.swapSlots(slotNumber);
     }
 
+    /**+
+     * @purpose : Check Vehicle Parked Or Not
+     * @param vehicle
+     * @return : Check Parking Status
+     */
     public boolean isVehiclePark(Vehicles vehicle) {
         for (int slot = 1; slot <= parkingLotCapacity(); slot++) {
             if (this.vehicles.get(slot) == vehicle)
@@ -79,6 +102,11 @@ public class ParkingSystem {
         return false;
     }
 
+    /**+
+     * @purpose : Remove Vehicle Record
+     * @param vehicle
+     * @return : Vehicle Removed Or Not
+     */
     public boolean unPark(Vehicles vehicle) {
         if (vehicle == null) return false;
         for (int slot = 1; slot <= parkingLotCapacity(); slot++) {
@@ -94,6 +122,11 @@ public class ParkingSystem {
         return false;
     }
 
+    /**+
+     * @purpose : Pass Total Time To Parking Owner
+     * @param vehicle
+     * @return : Total Parking Time
+     */
     public double getTotalTime(Vehicles vehicle) {
         entryTime = (long) this.entryTimeOfVehicles.get(vehicle);
         exitTime = (long) this.exitTimeOfVehicles.get(vehicle);
@@ -101,6 +134,9 @@ public class ParkingSystem {
         return exitTime - entryTime;
     }
 
+    /**+
+     * @purpose : Add Records Of Car Parked In Half Hours
+     */
     public void getTotalParkedTime() {
         for (int slot = 1 ; slot <= parkingLotCapacity() ; slot++) {
             if (vehicles.get(slot) != null) {
@@ -112,10 +148,11 @@ public class ParkingSystem {
         }
     }
 
-    public int getSlot(Vehicles vehicle) throws ParkingSystemException {
-        return SlotDetails.getSlot(vehicle);
-    }
-
+    /**+
+     * @purpose : Get Parking Time Records
+     * @param vehicle
+     * @return : Checkout Time
+     */
     public double getTime(Vehicles vehicle) {
         return getTotalTime(vehicle);
     }

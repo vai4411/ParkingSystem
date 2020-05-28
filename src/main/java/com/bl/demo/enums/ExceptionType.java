@@ -1,3 +1,8 @@
+/*******************************************************+
+ * @purpose : Provide Exception Statement In Enum Format
+ * @author : Vaibhav Patil
+ * @date : 28/5/2020
+ ********************************************************/
 package com.bl.demo.enums;
 
 public enum  ExceptionType {
