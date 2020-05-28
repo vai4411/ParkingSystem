@@ -26,6 +26,8 @@ public class PoliceDepartment {
                 return vehicle.getModel().equals(property) && vehicle.getVehicleColor().equals(VehicleDetails.Blue.getVehicleDetails());
             case "White" :
                 return vehicle.getVehicleColor().equals(property);
+            case "BMW" :
+                return vehicle.getModel().equals(property);
         }
         return false;
     }
