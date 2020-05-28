@@ -5,9 +5,14 @@ import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.SlotDetails;
 import com.bl.demo.model.Vehicles;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import static com.bl.demo.ParkingSystem.*;
 
 public class PoliceDepartment {
+//    public HashMap<Integer,Vehicles> longStandByVehicles;
 
     public void CarDetails(String property) {
         Vehicles vehicle = null;
@@ -49,5 +54,13 @@ public class PoliceDepartment {
     public String getDriverName(int slotNumber) {
         Vehicles vehicle = (Vehicles) carDetails.get(slotNumber);
         return vehicle.getDriverName();
+    }
+
+    public void vehicleParkingTimeData(Vehicles vehicle) {
+        longStandByVehicles.add(vehicle);
+    }
+
+    public List longStandByVehicle() {
+        return longStandByVehicles;
     }
 }

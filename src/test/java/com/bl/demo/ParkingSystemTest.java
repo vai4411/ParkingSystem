@@ -10,7 +10,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ParkingSystemTest {
     Vehicles vehicle = null;
@@ -494,6 +496,28 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle6);
             int toyotaCar = policeDepartment.getNumberOfVehicles(VehicleDetails.BMW.getVehicleDetails());
             Assert.assertEquals(3,toyotaCar);
+        } catch (ParkingSystemException e) { }
+    }
+
+    @Test
+    public void givenVehicle_WhenParkedAndUnParked_ShouldTotalNumber() {
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                VehicleDetails.Black.getVehicleDetails());
+        try {
+            parkingSystem.park(vehicle);
+            parkingSystem.park(vehicle2);
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.getTotalParkedTime();
+            List parkingTime = policeDepartment.longStandByVehicle();
+            Assert.assertEquals(6,parkingTime.size());
         } catch (ParkingSystemException e) { }
     }
 }

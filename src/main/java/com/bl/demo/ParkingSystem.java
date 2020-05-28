@@ -25,6 +25,8 @@ public class ParkingSystem {
     private double exitTime;
     private Date date;
     public static HashMap carDetails;
+    public static ArrayList longStandByVehicles;
+    long time = 0;
 
     public void registerParkingLotObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
@@ -39,6 +41,7 @@ public class ParkingSystem {
         this.exitTimeOfVehicles = new HashMap<>();
         this.date = new Date();
         this.carDetails = new HashMap<>();
+        this.longStandByVehicles = new ArrayList();
     }
 
     public static int parkingLotCapacity() {
@@ -87,6 +90,18 @@ public class ParkingSystem {
         exitTime = (long) this.exitTimeOfVehicles.get(vehicle);
         new ParkingLotOwner(exitTime - entryTime);
         return exitTime - entryTime;
+    }
+
+    public void getTotalParkedTime() {
+        Vehicles vehicle = null;
+        for (int slot = 1 ; slot <= parkingLotCapacity() ; slot++) {
+            if (vehicles.get(slot) != null) {
+                vehicle = this.vehicles.get(slot);
+                time = (long) this.entryTimeOfVehicles.get(vehicle);
+            }
+            if ((date.getTime() - time) < 3000000F)
+                new PoliceDepartment().vehicleParkingTimeData(vehicle);
+        }
     }
 
     public int getSlot(Vehicles vehicle) throws ParkingSystemException {
