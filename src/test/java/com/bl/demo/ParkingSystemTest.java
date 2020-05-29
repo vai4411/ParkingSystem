@@ -231,7 +231,7 @@ public class ParkingSystemTest {
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
-            double parkingTime = parkingSystem.getTime(vehicle);
+            double parkingTime = parkingSystem.getParkingTimeDetails(vehicle);
             double vehicleTime = parkingLotOwner.getTime();
             Assert.assertEquals(vehicleTime,parkingTime,0.0);
         } catch (ParkingSystemException e) { }
@@ -525,16 +525,21 @@ public class ParkingSystemTest {
     @Test
     public void givenParkingLot_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
-        Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+        Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                 VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                     VehicleDetails.Black.getVehicleDetails()));
-            parkingSystem.getTotalParkedTime();
-            List handicapDrivers = policeDepartment.getHandicapDriversOfSlots();
-            Assert.assertEquals(1,handicapDrivers.size());
+            parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                    VehicleDetails.Black.getVehicleDetails()));
+            HashMap handicapDrivers = policeDepartment.getHandicapDriversOfSlots();
+            Assert.assertEquals(2,handicapDrivers.size());
         } catch (ParkingSystemException e) { }
     }
 

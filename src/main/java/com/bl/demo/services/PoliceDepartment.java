@@ -9,7 +9,6 @@ import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,14 +16,15 @@ import static com.bl.demo.ParkingSystem.*;
 
 public class PoliceDepartment {
     Vehicles vehicle = null;
-    public ArrayList handicapDriver = new ArrayList();
+    private int startPosition = 1;
+    private int lastPosition = parkingLotCapacity();
 
     /**+
      * @purpose : Basis Of Various Properties Get Data And Store In Map
      * @param property
      */
     public void CarDetails(String property) {
-        for (int slot = 1 ; slot <=parkingLotCapacity() ; slot++ ) {
+        for (int slot = startPosition ; slot <=lastPosition ; slot++ ) {
             if (vehicles.get(slot) != null)
                 vehicle = vehicles.get(slot);
             if (PoliceDepartment.compareProperty(vehicle,property)) {
@@ -47,6 +47,8 @@ public class PoliceDepartment {
                 return vehicle.getVehicleColor().equals(property);
             case "BMW" :
                 return vehicle.getModel().equals(property);
+            case "Handicap" :
+                return vehicle.getDriver().equals(property);
         }
         return false;
     }
@@ -111,25 +113,14 @@ public class PoliceDepartment {
      * @purpose : Basis Of B and D Slots It Gives Handicap Driver Records
      * @return : List Of Handicap Drivers
      */
-    public List getHandicapDriversOfSlots() {
-        lotCapacity = parkingLots();
-        getHandicapDriversDetails();
-        lotCapacity = parkingLots() * 3 + 1;
-        getHandicapDriversDetails();
-        return handicapDriver;
-    }
-
-    /**+
-     * @purpose : Basis Of Slots Store Data In Map
-     */
-    public void getHandicapDriversDetails() {
-        for (int slot = lotCapacity + 1 ; slot <= lotCapacity*2 ; slot++) {
-            if (vehicles.get(slot) != null) {
-                vehicle = vehicles.get(slot);
-                if (vehicle.getDriver().equals(VehicleDetails.Handicap.getVehicleDetails()))
-                    handicapDriver.add(vehicle);
-            }
-        }
+    public HashMap getHandicapDriversOfSlots() {
+        startPosition = parkingLots() + 1;
+        lastPosition = parkingLots() * 2;
+        CarDetails(VehicleDetails.Handicap.getVehicleDetails());
+        startPosition = parkingLots() * 3 + 1;
+        lastPosition = parkingLots() * 4;
+        CarDetails(VehicleDetails.Handicap.getVehicleDetails());
+        return carDetails;
     }
 
     /**+
@@ -137,7 +128,7 @@ public class PoliceDepartment {
      * @param slotNumber
      * @param vehicle
      */
-    public void getVehicleDetails(int slotNumber,Vehicles vehicle) {
+    public void setVehicleDetails(int slotNumber, Vehicles vehicle) {
         vehicleData.put(slotNumber,vehicle);
     }
 

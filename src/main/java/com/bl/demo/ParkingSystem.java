@@ -26,14 +26,13 @@ public class ParkingSystem {
     private int slotNumber = 1;
     private HashMap entryTimeOfVehicles;
     private HashMap exitTimeOfVehicles;
-    private double entryTime;
-    private double exitTime;
+    private long entryTime;
+    private long exitTime;
     private Date date;
     public static HashMap carDetails;
     public static ArrayList longStandByVehicles;
     long time = 0;
-    Vehicles vehicle = null;
-    public static int lotCapacity;
+    public Vehicles vehicle = null;
     public static HashMap vehicleData;
 
     public void registerParkingLotObserver(ParkingLotObserver observer) {
@@ -66,7 +65,7 @@ public class ParkingSystem {
      * @return : Total Number Of Rows
      */
     public static int parkingLots() {
-        return parkingLotCapacity() / noOfSlots * 2;
+        return parkingLotCapacity() / ( noOfSlots * 2 );
     }
 
     /**+
@@ -85,7 +84,7 @@ public class ParkingSystem {
         }
         this.entryTimeOfVehicles.put(vehicle, date.getTime());
         this.vehicles.put(slotNumber, vehicle);
-        new PoliceDepartment().getVehicleDetails(slotNumber,vehicle);
+        new PoliceDepartment().setVehicleDetails(slotNumber,vehicle);
         slotNumber = SlotDetails.swapSlots(slotNumber);
     }
 
@@ -95,10 +94,8 @@ public class ParkingSystem {
      * @return : Check Parking Status
      */
     public boolean isVehiclePark(Vehicles vehicle) {
-        for (int slot = 1; slot <= parkingLotCapacity(); slot++) {
-            if (this.vehicles.get(slot) == vehicle)
+        if (this.vehicles.containsValue(vehicle))
                 return true;
-        }
         return false;
     }
 
@@ -109,15 +106,13 @@ public class ParkingSystem {
      */
     public boolean unPark(Vehicles vehicle) {
         if (vehicle == null) return false;
-        for (int slot = 1; slot <= parkingLotCapacity(); slot++) {
-            if (this.vehicles.get(slot) == vehicle) {
-                this.vehicles.remove(slot);
-                this.exitTimeOfVehicles.put(vehicle, date.getTime());
-                for (ParkingLotObserver observer : observers) {
-                    observer.capacityIsAvailable();
-                }
-                return true;
+        if (this.vehicles.containsValue(vehicle)) {
+            this.vehicles.remove(vehicle);
+            this.exitTimeOfVehicles.put(vehicle, date.getTime());
+            for (ParkingLotObserver observer : observers) {
+                observer.capacityIsAvailable();
             }
+            return true;
         }
         return false;
     }
@@ -127,7 +122,7 @@ public class ParkingSystem {
      * @param vehicle
      * @return : Total Parking Time
      */
-    public double getTotalTime(Vehicles vehicle) {
+    public double getParkingTimeDetails(Vehicles vehicle) {
         entryTime = (long) this.entryTimeOfVehicles.get(vehicle);
         exitTime = (long) this.exitTimeOfVehicles.get(vehicle);
         new ParkingLotOwner(exitTime - entryTime);
@@ -146,14 +141,5 @@ public class ParkingSystem {
             if ((date.getTime() - time) < 3000000F)
                 new PoliceDepartment().vehicleParkingTimeData(vehicle);
         }
-    }
-
-    /**+
-     * @purpose : Get Parking Time Records
-     * @param vehicle
-     * @return : Checkout Time
-     */
-    public double getTime(Vehicles vehicle) {
-        return getTotalTime(vehicle);
     }
 }
