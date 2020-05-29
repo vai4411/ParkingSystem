@@ -9,12 +9,17 @@ import com.bl.demo.enums.VehicleDetails;
 import com.bl.demo.exception.ParkingSystemException;
 import com.bl.demo.model.Vehicles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.bl.demo.ParkingSystem.*;
 
 public class PoliceDepartment {
+    private final int one = 1;
+    private final int two = 2;
+    private final int three = 3;
+    private final int four = 4;
     Vehicles vehicle = null;
     private int startPosition = 1;
     private int endPosition = parkingCapacity();
@@ -114,11 +119,11 @@ public class PoliceDepartment {
      * @return : List Of Handicap Drivers
      */
     public HashMap handicapDriversBAndDSlot() {
-        startPosition = numberOfRows() + 1;
-        endPosition = numberOfRows() * 2;
+        startPosition = numberOfRows() + one;
+        endPosition = numberOfRows() * two;
         CarDetails(VehicleDetails.Handicap.getVehicleDetails());
-        startPosition = numberOfRows() * 3 + 1;
-        endPosition = numberOfRows() * 4;
+        startPosition = numberOfRows() * three + one;
+        endPosition = numberOfRows() * four;
         CarDetails(VehicleDetails.Handicap.getVehicleDetails());
         return carDetails;
     }

@@ -26,6 +26,7 @@ public class ParkingSystemTest {
         parkingSystem = new ParkingSystem(2,3);
     }
 
+    //UC-1
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue() {
         try {
@@ -45,6 +46,7 @@ public class ParkingSystemTest {
         }
     }
 
+    //UC-2
     @Test
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
         try {
@@ -74,8 +76,9 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-3
     @Test
-    public void givenWhenParkingLotIsFull_ShouldInformTheOwner() {
+    public void givenParkingLot_WhenParkingLotIsFull_ShouldInformTheOwner() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
@@ -98,7 +101,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenWhenParkingLotIsFull_ShouldTrowTheException() {
+    public void givenParkingLot_WhenParkingLotIsFull_ShouldTrowTheException() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
@@ -121,7 +124,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenCapacityIsTwo_ShouldBeAbleToParkTwoVehicles() {
+    public void givenParkingLot_WhenCapacityIsTwo_ShouldBeAbleToParkTwoVehicles() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         try {
@@ -134,8 +137,9 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-4
     @Test
-    public void givenWhenParkingLotIsFull_ShouldInformAirportSecurity() {
+    public void givenParkingLot_WhenParkingLotIsFull_ShouldInformAirportSecurity() {
         AirportSecurity airportSecurity = new AirportSecurity();
         parkingSystem.registerParkingLotObserver(airportSecurity);
         try {
@@ -157,8 +161,9 @@ public class ParkingSystemTest {
         Assert.assertTrue(capacityFull);
     }
 
+    //UC-5
     @Test
-    public void givenOwnerWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
+    public void givenOwner_WhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         parkingSystem.registerParkingLotObserver(parkingLotOwner);
         try {
@@ -173,8 +178,9 @@ public class ParkingSystemTest {
         Assert.assertFalse(capacityFull);
     }
 
+    //Uc-6
     @Test
-    public void givenSecurityWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
+    public void givenSecurity_WhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnFalse() {
         AirportSecurity airportSecurity = new AirportSecurity();
         parkingSystem.registerParkingLotObserver(airportSecurity);
         try {
@@ -189,8 +195,9 @@ public class ParkingSystemTest {
         Assert.assertFalse(capacityFull);
     }
 
+    //UC-7
     @Test
-    public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
+    public void givenParkingLot_WhenOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         try {
@@ -203,7 +210,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenParkingLotOwnerWantToKnowAttendantToParkVehicle_WhenVehicleNotPresent_ShouldThrowException() {
+    public void givenParkingLot_WhenVehicleNotPresent_ShouldThrowException() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         try {
@@ -216,6 +223,7 @@ public class ParkingSystemTest {
         }
     }
 
+    //UC-8
     @Test
     public void givenAVehicle_WhenParkedAndUnParked_ShouldReturnTime() {
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
@@ -237,8 +245,9 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-9
     @Test
-    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorOne_ShouldReturnLotNumber() {
+    public void givenParkingLot_WhenOwnerWantToEvenlyDirectCars_ShouldReturnFirstLotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
@@ -256,7 +265,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorTwo_ShouldReturnLotNumber() {
+    public void givenParkingLot_WhenOwnerWantToEvenlyDirectCars_ShouldReturnThirdLotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
@@ -274,7 +283,7 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void givenParkingLotOwnerWantToEvenlyDirectCars_WhenFloorThree_ShouldReturnLotNumber() {
+    public void givenParkingLot_WhenOwnerWantToEvenlyDirectCars_ShouldReturnSecondLotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
         Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
@@ -291,6 +300,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-10
     @Test
     public void givenParkingLot_WhenHandicapDriverComes_ThenReturnNearestSlotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
@@ -317,6 +327,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-11
     @Test
     public void givenParkingLot_WhenLargeVehicleComes_ThenReturnSlotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Large.getVehicleDetails(),
@@ -328,6 +339,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-12
     @Test
     public void givenParkingLot_WhenWhiteCarParked_ShouldReturnTotalWhiteCars() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
@@ -382,6 +394,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-13
     @Test
     public void givenParkingLot_WhenToyotaCarParked_ShouldReturnTotalToyotaCars() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
@@ -458,6 +471,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-14
     @Test
     public void givenParkingLot_WhenBMWCarParked_ShouldReturnSlotNumber() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
@@ -500,6 +514,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-15
     @Test
     public void givenParkingLot_WhenCarParkedInHalfHours_ShouldReturnTotalNumber() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
@@ -522,6 +537,7 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-16
     @Test
     public void givenParkingLot_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
@@ -543,8 +559,9 @@ public class ParkingSystemTest {
         } catch (ParkingSystemException e) { }
     }
 
+    //UC-17
     @Test
-    public void givenVehicle_WhenHandicapDriverParkedCarInBAndDSlots_ShouldReturnNumberOfHandicapDriverVehicles() {
+    public void givenVehicle_WhenPoliceWantAllParkedCarDetails_ShouldReturnCarDetails() {
         PoliceDepartment policeDepartment = new PoliceDepartment();
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                 VehicleDetails.Black.getVehicleDetails());
