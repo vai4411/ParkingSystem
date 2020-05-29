@@ -231,7 +231,7 @@ public class ParkingSystemTest {
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle2);
             parkingSystem.unPark(vehicle);
-            double parkingTime = parkingSystem.getParkingTimeDetails(vehicle);
+            double parkingTime = parkingSystem.parkingTimeDetails(vehicle);
             double vehicleTime = parkingLotOwner.getTime();
             Assert.assertEquals(vehicleTime,parkingTime,0.0);
         } catch (ParkingSystemException e) { }
@@ -345,7 +345,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle3);
             parkingSystem.park(vehicle4);
             parkingSystem.park(vehicle5);
-            int whiteCar = policeDepartment.getNumberOfVehicles(VehicleDetails.White.getVehicleDetails());
+            int whiteCar = policeDepartment.numberOfVehicles(VehicleDetails.White.getVehicleDetails());
             Assert.assertEquals(2,whiteCar);
         } catch (ParkingSystemException e) { }
     }
@@ -361,7 +361,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle3);
-            int unknownVehicle = policeDepartment.getNumberOfVehicles(VehicleDetails.Black.getVehicleDetails());
+            int unknownVehicle = policeDepartment.numberOfVehicles(VehicleDetails.Black.getVehicleDetails());
             Assert.assertEquals(0,unknownVehicle);
         } catch (ParkingSystemException e) { }
     }
@@ -377,7 +377,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle3);
-            int whiteCar = policeDepartment.getSlot(vehicle2);
+            int whiteCar = policeDepartment.slotNumber(vehicle2);
             Assert.assertEquals(3,whiteCar);
         } catch (ParkingSystemException e) { }
     }
@@ -404,7 +404,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle4);
             parkingSystem.park(vehicle5);
             parkingSystem.park(vehicle6);
-            int toyotaCar = policeDepartment.getNumberOfVehicles(VehicleDetails.Toyota.getVehicleDetails());
+            int toyotaCar = policeDepartment.numberOfVehicles(VehicleDetails.Toyota.getVehicleDetails());
             Assert.assertEquals(3,toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -419,7 +419,7 @@ public class ParkingSystemTest {
         try {
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle1);
-            int toyotaCar = policeDepartment.getSlot(vehicle2);
+            int toyotaCar = policeDepartment.slotNumber(vehicle2);
             Assert.assertEquals(1,toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -435,8 +435,8 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle1);
             policeDepartment.CarDetails(VehicleDetails.Toyota.getVehicleDetails());
-            int countOfVehicle = policeDepartment.getSlot(vehicle2);
-            String toyotaCar = policeDepartment.getNumberPlate(countOfVehicle);
+            int countOfVehicle = policeDepartment.slotNumber(vehicle2);
+            String toyotaCar = policeDepartment.numberPlate(countOfVehicle);
             Assert.assertEquals("MH0423",toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -452,8 +452,8 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle1);
             policeDepartment.CarDetails(VehicleDetails.Toyota.getVehicleDetails());
-            int countOfVehicle = policeDepartment.getSlot(vehicle2);
-            String toyotaCar = policeDepartment.getDriverName(countOfVehicle);
+            int countOfVehicle = policeDepartment.slotNumber(vehicle2);
+            String toyotaCar = policeDepartment.driverName(countOfVehicle);
             Assert.assertEquals("yash",toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -468,7 +468,7 @@ public class ParkingSystemTest {
         try {
             parkingSystem.park(vehicle2);
             parkingSystem.park(vehicle1);
-            int toyotaCar = policeDepartment.getSlot(vehicle2);
+            int toyotaCar = policeDepartment.slotNumber(vehicle2);
             Assert.assertEquals(1,toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -495,7 +495,7 @@ public class ParkingSystemTest {
             parkingSystem.park(vehicle4);
             parkingSystem.park(vehicle5);
             parkingSystem.park(vehicle6);
-            int toyotaCar = policeDepartment.getNumberOfVehicles(VehicleDetails.BMW.getVehicleDetails());
+            int toyotaCar = policeDepartment.numberOfVehicles(VehicleDetails.BMW.getVehicleDetails());
             Assert.assertEquals(3,toyotaCar);
         } catch (ParkingSystemException e) { }
     }
@@ -516,7 +516,7 @@ public class ParkingSystemTest {
                     VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                     VehicleDetails.Black.getVehicleDetails()));
-            parkingSystem.getTotalParkedTime();
+            parkingSystem.totalParkingTime();
             List parkingTime = policeDepartment.longStandByVehicle();
             Assert.assertEquals(6,parkingTime.size());
         } catch (ParkingSystemException e) { }
@@ -538,7 +538,7 @@ public class ParkingSystemTest {
                     VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                     VehicleDetails.Black.getVehicleDetails()));
-            HashMap handicapDrivers = policeDepartment.getHandicapDriversOfSlots();
+            HashMap handicapDrivers = policeDepartment.handicapDriversBAndDSlot();
             Assert.assertEquals(2,handicapDrivers.size());
         } catch (ParkingSystemException e) { }
     }
@@ -554,7 +554,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                     VehicleDetails.Black.getVehicleDetails()));
             HashMap vehicleData = parkingSystem.vehicles;
-            HashMap vehicleDetails = policeDepartment.getVehicleData();
+            HashMap vehicleDetails = policeDepartment.vehicleData();
             Assert.assertEquals(vehicleData.size(),vehicleDetails.size());
         } catch (ParkingSystemException e) { }
     }

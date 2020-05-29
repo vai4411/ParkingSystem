@@ -17,14 +17,14 @@ import static com.bl.demo.ParkingSystem.*;
 public class PoliceDepartment {
     Vehicles vehicle = null;
     private int startPosition = 1;
-    private int lastPosition = parkingLotCapacity();
+    private int endPosition = parkingCapacity();
 
     /**+
      * @purpose : Basis Of Various Properties Get Data And Store In Map
      * @param property
      */
     public void CarDetails(String property) {
-        for (int slot = startPosition ; slot <=lastPosition ; slot++ ) {
+        for (int slot = startPosition; slot <= endPosition; slot++ ) {
             if (vehicles.get(slot) != null)
                 vehicle = vehicles.get(slot);
             if (PoliceDepartment.compareProperty(vehicle,property)) {
@@ -58,7 +58,7 @@ public class PoliceDepartment {
      * @param property
      * @return : Size Of Map
      */
-    public int getNumberOfVehicles(String property) {
+    public int numberOfVehicles(String property) {
         CarDetails(property);
         return carDetails.size();
     }
@@ -69,7 +69,7 @@ public class PoliceDepartment {
      * @return : Location Of Cars
      * @throws ParkingSystemException
      */
-    public int getSlot(Vehicles vehicle) throws ParkingSystemException {
+    public int slotNumber(Vehicles vehicle) throws ParkingSystemException {
         return SlotDetails.getSlot(vehicle);
     }
 
@@ -78,7 +78,7 @@ public class PoliceDepartment {
      * @param slotNumber
      * @return : Number Plate Of Car
      */
-    public String getNumberPlate(int slotNumber) {
+    public String numberPlate(int slotNumber) {
         Vehicles vehicle = (Vehicles) carDetails.get(slotNumber);
         return vehicle.getNumberPlate();
     }
@@ -88,7 +88,7 @@ public class PoliceDepartment {
      * @param slotNumber
      * @return : Driver Name Of car
      */
-    public String getDriverName(int slotNumber) {
+    public String driverName(int slotNumber) {
         Vehicles vehicle = (Vehicles) carDetails.get(slotNumber);
         return vehicle.getDriverName();
     }
@@ -113,12 +113,12 @@ public class PoliceDepartment {
      * @purpose : Basis Of B and D Slots It Gives Handicap Driver Records
      * @return : List Of Handicap Drivers
      */
-    public HashMap getHandicapDriversOfSlots() {
-        startPosition = parkingLots() + 1;
-        lastPosition = parkingLots() * 2;
+    public HashMap handicapDriversBAndDSlot() {
+        startPosition = numberOfRows() + 1;
+        endPosition = numberOfRows() * 2;
         CarDetails(VehicleDetails.Handicap.getVehicleDetails());
-        startPosition = parkingLots() * 3 + 1;
-        lastPosition = parkingLots() * 4;
+        startPosition = numberOfRows() * 3 + 1;
+        endPosition = numberOfRows() * 4;
         CarDetails(VehicleDetails.Handicap.getVehicleDetails());
         return carDetails;
     }
@@ -128,7 +128,7 @@ public class PoliceDepartment {
      * @param slotNumber
      * @param vehicle
      */
-    public void setVehicleDetails(int slotNumber, Vehicles vehicle) {
+    public void vehicleDetails(int slotNumber, Vehicles vehicle) {
         vehicleData.put(slotNumber,vehicle);
     }
 
@@ -136,7 +136,7 @@ public class PoliceDepartment {
      * @purpose : Basis Of Parked Vehicle Data Give Records
      * @return : It Give Map Of Parked Vehicles
      */
-    public HashMap getVehicleData() {
+    public HashMap vehicleData() {
         return vehicleData;
     }
 }

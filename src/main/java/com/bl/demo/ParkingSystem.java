@@ -56,7 +56,7 @@ public class ParkingSystem {
      * @purpose : Basis Of Slots Calculate Total Capacity
      * @return : Total Capacity Of Parking Lot
      */
-    public static int parkingLotCapacity() {
+    public static int parkingCapacity() {
         return actualCapacity * noOfSlots;
     }
 
@@ -64,8 +64,8 @@ public class ParkingSystem {
      * @purpose : Divide Slots Rows
      * @return : Total Number Of Rows
      */
-    public static int parkingLots() {
-        return parkingLotCapacity() / ( noOfSlots * 2 );
+    public static int numberOfRows() {
+        return parkingCapacity() / ( noOfSlots * 2 );
     }
 
     /**+
@@ -76,7 +76,7 @@ public class ParkingSystem {
     public void park(Vehicles vehicle) throws ParkingSystemException {
         if (isVehiclePark(vehicle))
             throw new ParkingSystemException("Vehicle Already Parked");
-        if (this.vehicles.size() == parkingLotCapacity()) {
+        if (this.vehicles.size() == parkingCapacity()) {
             for (ParkingLotObserver observer : observers) {
                 observer.capacityIsFull();
             }
@@ -84,7 +84,7 @@ public class ParkingSystem {
         }
         this.entryTimeOfVehicles.put(vehicle, date.getTime());
         this.vehicles.put(slotNumber, vehicle);
-        new PoliceDepartment().setVehicleDetails(slotNumber,vehicle);
+        new PoliceDepartment().vehicleDetails(slotNumber,vehicle);
         slotNumber = SlotDetails.swapSlots(slotNumber);
     }
 
@@ -122,7 +122,7 @@ public class ParkingSystem {
      * @param vehicle
      * @return : Total Parking Time
      */
-    public double getParkingTimeDetails(Vehicles vehicle) {
+    public double parkingTimeDetails(Vehicles vehicle) {
         entryTime = (long) this.entryTimeOfVehicles.get(vehicle);
         exitTime = (long) this.exitTimeOfVehicles.get(vehicle);
         new ParkingLotOwner(exitTime - entryTime);
@@ -132,8 +132,8 @@ public class ParkingSystem {
     /**+
      * @purpose : Add Records Of Car Parked In Half Hours
      */
-    public void getTotalParkedTime() {
-        for (int slot = 1 ; slot <= parkingLotCapacity() ; slot++) {
+    public void totalParkingTime() {
+        for (int slot = 1; slot <= parkingCapacity() ; slot++) {
             if (vehicles.get(slot) != null) {
                 vehicle = this.vehicles.get(slot);
                 time = (long) this.entryTimeOfVehicles.get(vehicle);
