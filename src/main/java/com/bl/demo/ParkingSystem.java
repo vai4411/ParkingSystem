@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ParkingSystem {
 
@@ -26,8 +27,8 @@ public class ParkingSystem {
     private int slotNumber = 1;
     private HashMap entryTimeOfVehicles;
     private HashMap exitTimeOfVehicles;
-    private long entryTime;
-    private long exitTime;
+    private double entryTime;
+    private double exitTime;
     private Date date;
     public static HashMap carDetails;
     public static ArrayList longStandByVehicles;
@@ -130,16 +131,21 @@ public class ParkingSystem {
     }
 
     /**+
+     * @purpose : Pass Vehicle Information To Police Department
+     * @param slot
+     */
+    public void parkingTimeCalculation(int slot) {
+        vehicle = this.vehicles.get(slot);
+        time = (long) this.entryTimeOfVehicles.get( vehicle);
+        if ((date.getTime() - time) < 3000000F)
+            new PoliceDepartment().vehicleParkingTimeData(vehicle);
+    }
+    /**+
      * @purpose : Add Records Of Car Parked In Half Hours
      */
     public void totalParkingTime() {
-        for (int slot = 1; slot <= parkingCapacity() ; slot++) {
-            if (vehicles.get(slot) != null) {
-                vehicle = this.vehicles.get(slot);
-                time = (long) this.entryTimeOfVehicles.get(vehicle);
-            }
-            if ((date.getTime() - time) < 3000000F)
-                new PoliceDepartment().vehicleParkingTimeData(vehicle);
+        IntStream.rangeClosed(1,parkingCapacity())
+                .filter(e->vehicles.get(e) != null)
+                .forEach(e-> parkingTimeCalculation(e));
         }
-    }
 }

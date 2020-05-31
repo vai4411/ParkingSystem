@@ -200,10 +200,12 @@ public class ParkingSystemTest {
     public void givenParkingLot_WhenOwnerWantToKnowAttendantToParkVehicle_ShouldReturnLotNumber() {
         Vehicles vehicle2 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails());
+        Vehicles vehicle3 = new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
+                VehicleDetails.Black.getVehicleDetails());
         try {
             parkingSystem.park(vehicle);
             parkingSystem.park(vehicle2);
-            parkingSystem.unPark(vehicle);
+            parkingSystem.park(vehicle3);
             int slotNumber = new SlotDetails().getSlot(vehicle2);
             Assert.assertEquals(3,slotNumber);
         } catch (ParkingSystemException e) { }
@@ -296,7 +298,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Normal.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                                             VehicleDetails.Black.getVehicleDetails()));
             parkingSystem.park(vehicle3);
-            Assert.assertEquals(2,new SlotDetails().getSlot(vehicle3));
+            Assert.assertEquals(4,new SlotDetails().getSlot(vehicle3));
         } catch (ParkingSystemException e) { }
     }
 
@@ -555,7 +557,7 @@ public class ParkingSystemTest {
             parkingSystem.park(new Vehicles(VehicleDetails.Handicap.getVehicleDetails(),VehicleDetails.Small.getVehicleDetails(),
                     VehicleDetails.Black.getVehicleDetails()));
             HashMap handicapDrivers = policeDepartment.handicapDriversBAndDSlot();
-            Assert.assertEquals(2,handicapDrivers.size());
+            Assert.assertEquals(1,handicapDrivers.size());
         } catch (ParkingSystemException e) { }
     }
 

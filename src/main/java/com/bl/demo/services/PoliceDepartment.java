@@ -12,6 +12,7 @@ import com.bl.demo.model.Vehicles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.bl.demo.ParkingSystem.*;
 
@@ -29,13 +30,20 @@ public class PoliceDepartment {
      * @param property
      */
     public void CarDetails(String property) {
-        for (int slot = startPosition; slot <= endPosition; slot++ ) {
-            if (vehicles.get(slot) != null)
-                vehicle = vehicles.get(slot);
-            if (PoliceDepartment.compareProperty(vehicle,property)) {
-                carDetails.put(slot,vehicle);
-            }
-        }
+        IntStream.rangeClosed(startPosition,endPosition)
+                .filter(e->vehicles.get(e) != null)
+                .forEach(e->getCar(e,property));
+    }
+
+    /**+
+     * @purpose : Take Slot And Property To Store Data
+     * @param slot
+     * @param property
+     */
+    public void getCar(int slot,String property) {
+        vehicle = vehicles.get(slot);
+        if (PoliceDepartment.compareProperty(vehicle,property))
+            carDetails.put(slot,vehicle);
     }
 
     /**+

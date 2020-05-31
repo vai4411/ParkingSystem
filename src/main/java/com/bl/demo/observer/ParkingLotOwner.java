@@ -17,7 +17,7 @@ public class ParkingLotOwner implements ParkingLotObserver {
     }
 
     public double getTime() {
-        return time;
+        return this.time;
     }
 
     @Override

@@ -21,8 +21,9 @@ public class SlotDetails {
      */
     public static int swapSlots(int slotNumber) {
         slotNumber += (parkingCapacity() / noOfSlots);
-        if (slotNumber > parkingCapacity())
-            slotNumber = 0;
+        if (slotNumber > parkingCapacity()) {
+            slotNumber = (slotNumber % parkingCapacity()) + 1;
+        }
         return slotNumber;
     }
 
@@ -31,7 +32,7 @@ public class SlotDetails {
      * @param vehicle
      * @throws ParkingSystemException
      */
-    public static void slotNumber(Vehicles vehicle) throws ParkingSystemException {
+    public static void findSlotNumber(Vehicles vehicle) throws ParkingSystemException {
         slotNumber = 0;
         for (int slot = 1; slot <= parkingCapacity() ; slot++ ) {
             if (vehicles.get(slot) == vehicle) {
@@ -56,7 +57,7 @@ public class SlotDetails {
      * @throws ParkingSystemException
      */
     public static int getSlot(Vehicles vehicle) throws ParkingSystemException {
-        slotNumber(vehicle);
+        findSlotNumber(vehicle);
         return slotNumber;
     }
 }
