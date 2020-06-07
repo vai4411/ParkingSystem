@@ -110,9 +110,8 @@ public class ParkingSystem {
         if (this.vehicles.containsValue(vehicle)) {
             this.vehicles.remove(vehicle);
             this.exitTimeOfVehicles.put(vehicle, date.getTime());
-            for (ParkingLotObserver observer : observers) {
-                observer.capacityIsAvailable();
-            }
+            observers.stream()
+                    .forEach(e -> e.capacityIsAvailable());
             return true;
         }
         return false;
@@ -145,7 +144,7 @@ public class ParkingSystem {
      */
     public void totalParkingTime() {
         IntStream.rangeClosed(1,parkingCapacity())
-                .filter(e->vehicles.get(e) != null)
-                .forEach(e-> parkingTimeCalculation(e));
+                .filter(e -> vehicles.get(e) != null)
+                .forEach(e -> parkingTimeCalculation(e));
         }
 }

@@ -31,8 +31,8 @@ public class PoliceDepartment {
      */
     public void CarDetails(String property) {
         IntStream.rangeClosed(startPosition,endPosition)
-                .filter(e->vehicles.get(e) != null)
-                .forEach(e->getCar(e,property));
+                .filter(e -> vehicles.get(e) != null)
+                .forEach(e -> getCar(e,property));
     }
 
     /**+
